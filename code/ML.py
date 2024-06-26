@@ -25,8 +25,11 @@ forest.fit(X_train, y_train)
 
 # テストデータでの予済
 y_pred = forest.predict(X_test)
+prnt(y_pred)
 
-# モデルのパフォーマンスを評価
+# モデルのパフォーマンスを評価こんんちは
+
+# モデルのパフォーマンスを評価こんんちは
 mse = mean_squared_error(y_test, y_pred)
 r2 = r2_score(y_test, y_pred)
 
