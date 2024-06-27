@@ -3,8 +3,8 @@ from spotipy.oauth2 import SpotifyClientCredentials
 import pandas as pd
 import time
 
-client_id = 'febed4a2364542c3b994eb7360478f3a'
-client_secret = '4378e979300844bba06dfa6dfa1de147'
+client_id = '264f764417e24da8abe1508c468df6c0'
+client_secret = '4626a88350f64bb1a0d7d7a9577342c0'
 client_credentials_manager = SpotifyClientCredentials(client_id=client_id, client_secret=client_secret)
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
@@ -32,40 +32,38 @@ def get_all_track_ids_and_position(playlist_id, playlist_number):
 def get_track_features(track_details):
     features_list = []
     for track_id, play_number, playlist_number in track_details:
-        retry = True
-        while retry:
-            try:
-                track_info = sp.track(track_id)
-                track_features = sp.audio_features(track_id)[0]
-                features_list.append({
-                    'track_id': track_id,
-                    'track_name': track_info['name'],
-                    'danceability': track_features['danceability'],
-                    'acousticness': track_features['acousticness'],
-                    'energy': track_features['energy'],
-                    'tempo': track_features['tempo'],
-                    'instrumentalness': track_features['instrumentalness'],
-                    'loudness': track_features['loudness'],
-                    'liveness': track_features['liveness'],
-                    'duration_ms': track_features['duration_ms'],
-                    'key': track_features['key'],
-                    'valence': track_features['valence'],
-                    'speechiness': track_features['speechiness'],
-                    'mode': track_features['mode'],
-                    'play_number': play_number,
-                    'playlist_number': playlist_number
-                })
-                retry = False
-            except spotipy.exceptions.SpotifyException as e:
-                if e.http_status == 429:
-                    retry_after = int(e.headers.get('Retry-After', 10))  # デフォルトの待機時間を10秒に設定
-                    print(f"Rate limit exceeded, sleeping for {retry_after} seconds.")
-                    time.sleep(retry_after + 1)
-                else:
-                    raise
+        try:
+            track_info = sp.track(track_id)
+            track_features = sp.audio_features(track_id)[0]
+
+            features_list.append({
+                'track_id': track_id,
+                'track_name': track_info['name'],
+                'danceability': track_features['danceability'],
+                'acousticness': track_features['acousticness'],
+                'energy': track_features['energy'],
+                'tempo': track_features['tempo'],
+                'instrumentalness': track_features['instrumentalness'],
+                'loudness': track_features['loudness'],
+                'liveness': track_features['liveness'],
+                'duration_ms': track_features['duration_ms'],
+                'key': track_features['key'],
+                'valence': track_features['valence'],
+                'speechiness': track_features['speechiness'],
+                'mode': track_features['mode'],
+                'play_number': play_number,
+                'playlist_number': playlist_number
+            })
+
+        except spotipy.exceptions.SpotifyException as e:
+            if e.http_status == 429:
+                retry_after = int(e.headers['Retry-After'])
+                print(f"Rate limit exceeded, sleeping for {retry_after} seconds.")
+                time.sleep(retry_after + 1)
+                continue
+            raise
 
     return features_list
-
 
 # 複数のプレイリストIDをリストで定義
 playlist_ids = [
