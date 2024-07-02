@@ -25,7 +25,7 @@ forest.fit(X_train, y_train)
 
 # テストデータでの予済
 y_pred = forest.predict(X_test)
-prnt(y_pred)
+print(y_pred)
 
 # モデルのパフォーマンスを評価こんんちは
 

@@ -65,14 +65,13 @@ def get_track_features(track_details):
 
     return features_list
 
-# 複数のプレイリストIDをリストで定義
+# 複数のプレイリストIDをリストで定義  https://open.spotify.com/playlist/54PDYvBhOWsLQdNx0QBfir?si=77ce8fbb686f4231
 playlist_ids = [
-    '4YtrqPySpV4Na5c1cFltkb',  # https://open.spotify.com/playlist/4YtrqPySpV4Na5c1cFltkb?si=0f283fcfc4674550
-    '7nKCHh113ojicmJ8QMCvhF',  # https://open.spotify.com/playlist/7nKCHh113ojicmJ8QMCvhF?si=8d4ce7b7e84f4c34
-    '6MhJHMS0bhdHoaKN6a2Mq5',  # https://open.spotify.com/playlist/6MhJHMS0bhdHoaKN6a2Mq5?si=c90b5a8772744ff6
-    '2E2eI5zIlsulHgaN1n3bkQ',  # https://open.spotify.com/playlist/2E2eI5zIlsulHgaN1n3bkQ?si=9117b35d64394a57
-    '5MqusUNKU4BTpECFgnV2JL'   # https://open.spotify.com/playlist/5MqusUNKU4BTpECFgnV2JL?si=cd5b75101f364914
+    '54PDYvBhOWsLQdNx0QBfir',
+
 ]
+
+
 
 track_details = []
 
@@ -85,6 +84,6 @@ track_features = get_track_features(track_details)
 
 # データフレームに結果を保存し、CSVに出力
 df = pd.DataFrame(track_features)
-df.to_csv('track_features.csv', index=False)
+df.to_csv('ALL_track_features.csv', index=False)
 
 print("CSV file has been created with the track features.")

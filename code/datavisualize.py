@@ -1,24 +1,45 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import seaborn as sns
 
-# CSVファイルからデータを読み込む
-df = pd.read_csv('track_features.csv')
+# CSVファイルの読み込み
+df = pd.read_csv('track_features_0701.csv')
 
-# 基本統計量を計算
-stats = df.describe()
+# トラックIDとトラック名を除外
+df_numeric = df.drop(columns=['track_id', 'track_name'])
 
-# プロットを行うための準備
-fig, ax = plt.subplots()
+# 基本統計量の表示
+print("基本統計量:")
+print(df_numeric.describe())
 
-# 各プレイリスト番号でループ
-for playlist_number in df['playlist_number'].unique():
-    playlist_data = df[df['playlist_number'] == playlist_number]
-    # 各特徴量についてプロット
-    for feature in ['danceability', 'energy', 'tempo', 'loudness']:
-        ax.scatter(playlist_data['play_number'], playlist_data[feature], label=f"{feature} (Playlist {playlist_number})")
+# 相関行列の計算
+correlation = df_numeric.corr()
 
-ax.set_xlabel("Play Number")
-ax.set_ylabel("Feature Value")
-ax.legend(title="Features")
-
+# 相関行列のヒートマップを表示
+plt.figure(figsize=(12, 10))
+sns.heatmap(correlation, annot=True, cmap='coolwarm', fmt=".2f")
+plt.title('Feature Correlation')
 plt.show()
+
+# プレイリスト番号によってデータを分割
+playlist_groups = df.groupby('playlist_number')
+
+# 各プレイリストでのデータ変化をプロット
+for name, group in playlist_groups:
+    plt.figure(figsize=(10, 6))
+    plt.plot(group['play_number'], group['danceability'], label='Danceability')
+    plt.plot(group['play_number'], group['energy'], label='Energy')
+    plt.plot(group['play_number'], group['tempo'], label='Tempo')
+    #plt.plot(group['play_number'], group['acousticness'], label='Acousticness')
+    plt.plot(group['play_number'], group['instrumentalness'], label='Instrumentalness')
+    #plt.plot(group['play_number'], group['loudness'], label='Loudness')
+    #plt.plot(group['play_number'], group['liveness'], label='Liveness')
+    plt.plot(group['play_number'], group['valence'], label='Valence')
+    #plt.plot(group['play_number'], group['speechiness'], label='Speechiness')
+    
+    plt.title(f'Feature Changes in Playlist {name}')
+    plt.xlabel('Play Number')
+    plt.ylabel('Feature Value')
+    plt.legend()
+    plt.grid(True)
+    plt.show()
