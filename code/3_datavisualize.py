@@ -3,10 +3,12 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # CSVファイルの読み込み
-df = pd.read_csv('track_features_0701.csv')
+df = pd.read_csv('track_features_0701_updated.csv')
 
 # トラックIDとトラック名を除外
 df_numeric = df.drop(columns=['track_id', 'track_name'])
+print("数値データの先頭:")
+print(df_numeric.head())
 
 # 基本統計量の表示
 print("基本統計量:")
@@ -29,7 +31,7 @@ for name, group in playlist_groups:
     plt.figure(figsize=(10, 6))
     plt.plot(group['play_number'], group['danceability'], label='Danceability')
     plt.plot(group['play_number'], group['energy'], label='Energy')
-    plt.plot(group['play_number'], group['tempo'], label='Tempo')
+    plt.plot(group['play_number'], group['tempo_scaled'], label='Tempo_scaled')
     #plt.plot(group['play_number'], group['acousticness'], label='Acousticness')
     plt.plot(group['play_number'], group['instrumentalness'], label='Instrumentalness')
     #plt.plot(group['play_number'], group['loudness'], label='Loudness')
