@@ -5,7 +5,9 @@ from tensorflow.keras.layers import LSTM, Dense, Dropout
 from sklearn.model_selection import train_test_split
 
 # データの読み込み
-df = pd.read_csv('track_features_0701_updated.csv')
+df = pd.read_csv('../data/track_features_0701_updated.csv')
+
+
 
 df = df.drop(columns=['track_id', 'track_name'])
 
@@ -61,3 +63,7 @@ history = model.fit(X_train, y_train, epochs=30, batch_size=32, validation_split
 # モデルの評価
 test_loss = model.evaluate(X_test, y_test, verbose=1)
 print(f'Test Loss: {test_loss}')
+
+
+# モデルの保存
+model.save('../model/rnn_model.h5')
