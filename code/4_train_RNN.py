@@ -10,7 +10,9 @@ df = pd.read_csv('./data/track_features_0701_updated.csv')
 
 
 
-df = df.drop(columns=['track_id', 'track_name'])
+df = df.drop(columns=['track_id', 'track_name','playlist_number' ])
+
+print(df.head())
 
 # 欠損値の確認
 print(df.isnull().sum())
@@ -22,6 +24,8 @@ df.fillna(df.mean(), inplace=True)
 # 既に正規化された特徴量を使用
 features = df.drop(['play_number'], axis=1)  # play_numberを除外
 target = df['play_number'].values.reshape(-1, 1)  # ターゲットを適切な形状に変換
+
+print(features.head())
 
 # データをシーケンスに変換する関数
 def create_sequences(features, target, sequence_length):
