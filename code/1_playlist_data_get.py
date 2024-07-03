@@ -82,6 +82,6 @@ for index, playlist_id in enumerate(playlist_ids, start=1):
 
 track_features = get_track_features(track_details)
 df = pd.DataFrame(track_features)
-df.to_csv('ALL_track_features.csv', index=False)
+df.to_csv('./data/ALL_track_features.csv', index=False)
 
 print("CSV file has been created with the track features.")

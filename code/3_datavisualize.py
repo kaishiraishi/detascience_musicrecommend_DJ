@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # CSVファイルの読み込み
-df = pd.read_csv('track_features_0701_updated.csv')
+df = pd.read_csv('./data/track_features_0701_updated.csv')
 
 # トラックIDとトラック名を除外
 df_numeric = df.drop(columns=['track_id', 'track_name'])

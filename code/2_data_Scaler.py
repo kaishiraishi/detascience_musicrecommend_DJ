@@ -2,9 +2,9 @@ from sklearn.preprocessing import MinMaxScaler
 import pandas as pd
 
 # CSVファイルの読み込み
-df = pd.read_csv('track_features_0701.csv')
+df = pd.read_csv('./data/track_features_0701.csv')
 # 'ALL_track_features.csv'ファイルの読み込み
-df_all = pd.read_csv('ALL_track_features.csv')
+df_all = pd.read_csv('./data/ALL_track_features.csv')
 
 
 
