@@ -1,59 +1,51 @@
+import numpy as np
 import pandas as pd
 from tensorflow.keras.models import load_model
-from sklearn.preprocessing import MinMaxScaler
-import numpy as np
+from sklearn.metrics.pairwise import cosine_similarity
 
-# モデルの読み込み
-model = load_model('./model/rnn_model.h5')
+def load_data(file_path):
+    return pd.read_csv(file_path)
 
-# 新しいデータの読み込み
-df_new_tracks = pd.read_csv('./data/ALL_track_features_updated.csv')
+def preprocess_data(data):
+    features = data.drop(columns=['track_id', 'track_name'])  # トラックIDと名前を除外
+    return features.values  # Numpy配列に変換
 
-df_new_tracks = df_new_tracks.drop(columns=['track_id', 'track_name', 'play_number'])
+def initialize_playlist(data, num_tracks=10):
+    # 初期プレイリストをランダムに選択
+    initial_indices = np.random.choice(range(len(data)), size=num_tracks, replace=False)
+    return data[initial_indices]
 
-print(df_new_tracks.head())
+def predict_next_track(model, current_playlist, all_features):
+    # 最後の10曲から次の曲を予測
+    prediction = model.predict(np.array([current_playlist[-10:]]))[0]
+    # 全曲とのコサイン類似度を計算
+    similarity_scores = cosine_similarity([prediction], all_features)[0]
+    # 最も類似度が高い曲のインデックスを取得
+    next_track_index = np.argmax(similarity_scores)
+    return all_features[next_track_index]
 
+def generate_playlist(model, initial_playlist, all_features, playlist_length=50):
+    current_playlist = list(initial_playlist)
+    for _ in range(playlist_length - len(initial_playlist)):
+        next_track = predict_next_track(model, np.array(current_playlist), all_features)
+        current_playlist.append(next_track)
+    return np.array(current_playlist)
 
-# 欠損値の確認
-#print(df_new_tracks.isnull().sum())
+# メイン実行ブロック
+if __name__ == '__main__':
+    model_path = './model/rnn_model.h5'
+    data_path = './data/ALL_track_features_updated.csv'
 
-# 欠損値があれば、例えば列の平均値で埋める
-#df_new_tracks.fillna(df_new_tracks.mean(), inplace=True)
+    # モデルとデータの読み込み
+    model = load_model(model_path)
+    data = load_data(data_path)
+    all_features = preprocess_data(data)
 
-# 不要な列があれば除外（例えばIDや名前など）
-df_new_tracks = df_new_tracks.drop(columns=['track_id', 'track_name', 'playlist_number'])
+    # 初期プレイリストの作成
+    initial_playlist = initialize_playlist(all_features, num_tracks=10)
 
-# データの欠損値を平均値で補完
-df_new_tracks.fillna(df_new_tracks.mean(), inplace=True)
+    # プレイリストの生成
+    final_playlist = generate_playlist(model, initial_playlist, all_features, playlist_length=50)
 
-# 特徴量の選択とNumPy配列に変換
-features = df_new_tracks.values
-
-# MinMaxScalerインスタンスの作成（訓練データでfitしたスケーラーを使用することが理想）
-scaler = MinMaxScaler()
-scaler.fit(features)  # 実際には訓練データでfitしたスケーラーを使用するべき
-
-# データをシーケンスに変換する関数
-def create_sequences(features, sequence_length):
-    xs = []
-    for i in range(len(features) - sequence_length + 1):
-        xs.append(features[i:(i + sequence_length)])
-    return np.array(xs)
-
-# シーケンスの長さを定義
-sequence_length = 10
-X_new = create_sequences(features, sequence_length)
-
-# 予測を実行
-predictions = model.predict(X_new)
-
-# 予測結果をDataFrameに格納
-results_df = pd.DataFrame(predictions, columns=['Predicted_Play_Number'])
-
-# 予測結果のDataFrameをCSVファイルとして保存
-results_df.to_csv('./data/predicted_play_numbers.csv', index=False)
-
-print("予測完了し、結果を 'predicted_play_numbers.csv' に保存しました！")
-
-
-
+    # 生成されたプレイリストの保存
+    np.savetxt('generated_playlist.csv', final_playlist, delimiter=',')
