@@ -56,4 +56,4 @@ model.compile(optimizer=Adam(), loss='mean_squared_error')
 model.fit(X_train, y_train, epochs=50, batch_size=32, validation_data=(X_test, y_test))
 
 # モデルの保存
-model.save('./model/rnn_model.h5')
+model.save('./model/1rnn_model.h5')
