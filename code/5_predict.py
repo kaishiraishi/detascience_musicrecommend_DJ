@@ -64,8 +64,6 @@ def generate_playlist(model, initial_playlist, all_features, playlist_length=50)
 
 
 
-
-
 if __name__ == '__main__':
     model_path = './model/1rnn_model.h5'
     data_path = './data/ALL_track_features_updated.csv'
