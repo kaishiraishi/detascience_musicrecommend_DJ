@@ -5,7 +5,9 @@ import seaborn as sns
 # CSVファイルの読み込み
 #/Users/shiraishikai/Documents/GitHub/detascience_musicrecommend_DJ/data/ALL_track_features_updated.csv
 #track_features_0701_updated.csv
-df = pd.read_csv('./data/target_scaled.csv')
+
+
+df = pd.read_csv('./data/all_scaled.csv')
 
 # トラックIDとトラック名を除外
 df_numeric = df.drop(columns=['track_id', 'track_name'])

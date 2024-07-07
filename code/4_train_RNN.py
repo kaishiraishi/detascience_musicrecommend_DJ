@@ -9,7 +9,7 @@ from sklearn.model_selection import train_test_split
 data = pd.read_csv('./data/target_scaled.csv')
 
 # 必要のないカラムを削除
-data = data.drop(columns=['track_id', 'track_name', 'duration_ms', 'tempo'])
+data = data.drop(columns=['track_id', 'track_name', 'tempo'])
 print(data.head())
 
 # プレイリスト番号でグループ化し、各プレイリストを独立したシーケンスとして扱う

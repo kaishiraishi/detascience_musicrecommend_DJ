@@ -9,7 +9,7 @@ def load_data(file_path):
 
 def preprocess_data(data):
     # 特徴量とID、名前を分離
-    features = data.drop(columns=['playlist_number', 'duration_ms', 'tempo'])
+    features = data.drop(columns=['playlist_number', 'tempo'])
     return features
 
 def initialize_playlist(data, num_tracks=10):
@@ -21,8 +21,8 @@ def initialize_playlist(data, num_tracks=10):
 
 def predict_next_track(model, current_playlist, all_features):
     feature_columns = [
-        'danceability', 'acousticness', 'energy', 'instrumentalness',
-        'loudness', 'liveness', 'key', 'valence', 'speechiness', 'mode', 'play_number', 'tempo_scaled'
+        'danceability', 'acousticness', 'instrumentalness',
+        'loudness', 'key',  'speechiness', 'mode', 'play_number', 'tempo_scaled'
     ]
 
     current_features = current_playlist[-10:][feature_columns].values
@@ -65,8 +65,8 @@ def generate_playlist(model, initial_playlist, all_features, playlist_length=50)
 
 
 if __name__ == '__main__':
-    model_path = './model/1rnn_model.h5'
-    data_path = './data/ALL_track_features_updated.csv'
+    model_path = './model/rnn_model.h5'
+    data_path = './data/all_scaled.csv'
 
     # モデルとデータの読み込み
     model = load_model(model_path)
