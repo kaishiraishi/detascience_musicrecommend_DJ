@@ -6,7 +6,7 @@ from tensorflow.keras.optimizers import Adam
 from sklearn.model_selection import train_test_split
 
 # データの読み込み
-data = pd.read_csv('./data/track_features_0701_updated.csv')
+data = pd.read_csv('./data/target_scaled.csv')
 
 # 必要のないカラムを削除
 data = data.drop(columns=['track_id', 'track_name', 'duration_ms', 'tempo'])
@@ -56,4 +56,4 @@ model.compile(optimizer=Adam(), loss='mean_squared_error')
 model.fit(X_train, y_train, epochs=50, batch_size=32, validation_data=(X_test, y_test))
 
 # モデルの保存
-model.save('./model/1rnn_model.h5')
+model.save('./model/rnn_model.h5')

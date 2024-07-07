@@ -48,14 +48,14 @@ def get_track_features(track_details):
                         'track_name': info['name'],
                         'danceability': features['danceability'],
                         'acousticness': features['acousticness'],
-                        'energy': features['energy'],
+                        #'energy': features['energy'],
                         'tempo': features['tempo'],
                         'instrumentalness': features['instrumentalness'],
                         'loudness': features['loudness'],
-                        'liveness': features['liveness'],
-                        'duration_ms': features['duration_ms'],
+                        #'liveness': features['liveness'],
+                        #'duration_ms': features['duration_ms'],
                         'key': features['key'],
-                        'valence': features['valence'],
+                        #'valence': features['valence'],
                         'speechiness': features['speechiness'],
                         'mode': features['mode'],
                         'play_number': batch[index][1],
@@ -73,7 +73,12 @@ def get_track_features(track_details):
 
     return features_list
 
-playlist_ids = ['54PDYvBhOWsLQdNx0QBfir']
+#######################################################################################################
+#ALLtrack
+#playlist_ids = ['54PDYvBhOWsLQdNx0QBfir']
+playlist_ids = ["7q1v2XEtG7VKL43a3KRDZS","2x9AJ9CMCWuy3z6Z60FwzB","3jh079OCXqZyjO5lIIbxz0","2HJiPFLnU8evA9LqFHw6E8","0jNyIKL77YOoss7kgSkcKu","7jvvWCY9lV742jA7WlTnAa","3gayI3Ix4VJH8XaccbdFzV","4bDTpvyCgukzBrcXQAkd1Y","5nSHOShqekXxFMkZxGnUDL","7nKCHh113ojicmJ8QMCvhF"]
+
+
 track_details = []
 
 for index, playlist_id in enumerate(playlist_ids, start=1):
@@ -82,6 +87,6 @@ for index, playlist_id in enumerate(playlist_ids, start=1):
 
 track_features = get_track_features(track_details)
 df = pd.DataFrame(track_features)
-df.to_csv('./data/ALL_track_features.csv', index=False)
+df.to_csv('./data/target.csv', index=False)
 
 print("CSV file has been created with the track features.")

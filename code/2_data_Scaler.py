@@ -2,9 +2,9 @@ from sklearn.preprocessing import MinMaxScaler
 import pandas as pd
 
 # CSVファイルの読み込み
-df = pd.read_csv('./data/track_features_0701.csv')
+df = pd.read_csv('./data/target.csv')
 # 'ALL_track_features.csv'ファイルの読み込み
-df_all = pd.read_csv('./data/ALL_track_features.csv')
+df_all = pd.read_csv('./data/all.csv')
 
 
 
@@ -35,7 +35,7 @@ print(df_all[['tempo', 'tempo_scaled']].head())
 
 
 # 変更を新しいファイルに保存
-df.to_csv('track_features_0701_updated.csv', index=False)
+df.to_csv('target_scaled', index=False)
 # 変更を新しいファイルに保存
-df_all.to_csv('ALL_track_features_updated.csv', index=False)
+df_all.to_csv('all_scaled.csv', index=False)
 
