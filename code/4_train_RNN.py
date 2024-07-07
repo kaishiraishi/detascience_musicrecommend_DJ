@@ -39,7 +39,7 @@ print("X_train shape:", X_train.shape)
 print("y_train shape:", y_train.shape)
 
 
-
+#https://open.spotify.com/playlist/54PDYvBhOWsLQdNx0QBfir?si=cfc051549684486a
 # モデルの構築
 model = Sequential([
     LSTM(64, return_sequences=True, input_shape=(10, X_train.shape[2])),
