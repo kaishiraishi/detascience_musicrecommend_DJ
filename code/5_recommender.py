@@ -26,7 +26,7 @@ for i, a_track in enumerate(a_df['track_id']):
             similarity_matrix[i, j] = 0
 
 # 類似度が最も高い上位数曲を選択
-top_n = 10  # 上位5曲を選択する例
+top_n = 5  # 上位5曲を選択する例
 most_similar_indices = np.argsort(-similarity_matrix, axis=1)[:, :top_n]
 recommended_songs = b_df.iloc[most_similar_indices.flatten()]
 
@@ -34,6 +34,6 @@ recommended_songs = b_df.iloc[most_similar_indices.flatten()]
 recommended_songs = recommended_songs.drop_duplicates(subset='track_id', keep='first')
 
 # 結果をC.csvに出力
-recommended_songs.to_csv('Cluster.csv', index=False)
+recommended_songs.to_csv('./data/Cluster.csv', index=False)
 
 print(f"Recommendations based on cosine similarity for the top {top_n} similar songs have been saved to C.csv. Duplicate tracks have been removed.")
