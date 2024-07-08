@@ -34,6 +34,6 @@ recommended_songs = b_df.iloc[most_similar_indices.flatten()]
 recommended_songs = recommended_songs.drop_duplicates(subset='track_id', keep='first')
 
 # 結果をC.csvに出力
-recommended_songs.to_csv('C.csv', index=False)
+recommended_songs.to_csv('Cluster.csv', index=False)
 
 print(f"Recommendations based on cosine similarity for the top {top_n} similar songs have been saved to C.csv. Duplicate tracks have been removed.")

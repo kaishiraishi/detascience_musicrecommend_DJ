@@ -69,7 +69,7 @@ def generate_playlist(model, initial_playlist, all_features, playlist_length=50)
 
 if __name__ == '__main__':
     model_path = './model/rnn_model.h5'
-    data_path = './data/C.csv'
+    data_path = './data/Cluster.csv'
 
     # モデルとデータの読み込み
     model = load_model(model_path)
