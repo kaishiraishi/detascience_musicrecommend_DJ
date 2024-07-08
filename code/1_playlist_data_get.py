@@ -73,7 +73,10 @@ def get_track_features(track_details):
 
 #######################################################################################################
 #ALL
-playlist_ids = ['54PDYvBhOWsLQdNx0QBfir','5zpoWFQ07vZQgxI2Te9QN0']
+#playlist_ids = ['54PDYvBhOWsLQdNx0QBfir','5zpoWFQ07vZQgxI2Te9QN0']
+
+#setlist
+playlist_ids = ["7q1v2XEtG7VKL43a3KRDZS","2x9AJ9CMCWuy3z6Z60FwzB","3jh079OCXqZyjO5lIIbxz0","2HJiPFLnU8evA9LqFHw6E8","0jNyIKL77YOoss7kgSkcKu","7jvvWCY9lV742jA7WlTnAa","3gayI3Ix4VJH8XaccbdFzV","4bDTpvyCgukzBrcXQAkd1Y","5nSHOShqekXxFMkZxGnUDL","7nKCHh113ojicmJ8QMCvhF"]
 
 track_details = []
 

@@ -4,8 +4,8 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics.pairwise import cosine_similarity
 
 # データの読み込み
-a_df = pd.read_csv('target_scaled.csv')  # 現在のプレイリストデータ
-b_df = pd.read_csv('all_scaled.csv')  # 比較対象の曲集合
+a_df = pd.read_csv('./data/target_scaled.csv')  # 現在のプレイリストデータ
+b_df = pd.read_csv('./data/all_scaled.csv')  # 比較対象の曲集合
 
 # 除外するカラムを指定
 excluded_columns = ['track_id', 'track_name', 'playlist_number', 'play_number']  # 除外したいカラム名のリスト

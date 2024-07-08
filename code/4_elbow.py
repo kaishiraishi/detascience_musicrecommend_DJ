@@ -4,7 +4,7 @@ from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
 
 # データの読み込み
-a_df = pd.read_csv('all_scaled.csv')  # 現在のプレイリストデータ
+a_df = pd.read_csv('./data/all_scaled.csv')  # 現在のプレイリストデータ
 
 # データ正規化
 scaler = MinMaxScaler()
