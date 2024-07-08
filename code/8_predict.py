@@ -29,6 +29,8 @@ def predict_next_track(model, current_playlist, all_features):
     prediction = model.predict(current_features[np.newaxis, :, :])[0]
     similarity_scores = cosine_similarity([prediction], all_features[feature_columns].values)[0]
 
+
+###########################################################################
     # 類似度が0.8以上の曲を候補とする
     similar_tracks = all_features[similarity_scores >= 0.8]
     if not similar_tracks.empty:
@@ -66,7 +68,7 @@ def generate_playlist(model, initial_playlist, all_features, playlist_length=50)
 
 if __name__ == '__main__':
     model_path = './model/rnn_model.h5'
-    data_path = './data/all_scaled.csv'
+    data_path = './data/C.csv'
 
     # モデルとデータの読み込み
     model = load_model(model_path)
