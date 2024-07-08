@@ -50,7 +50,7 @@ def get_track_features(track_details):
                         'acousticness': features['acousticness'],
                         'tempo': features['tempo'],
                         'instrumentalness': features['instrumentalness'],
-                        #'loudness': features['loudness'],
+                        'energy': features['energy'],
                         'key': features['key'],
                         'speechiness': features['speechiness'],
                         'mode': features['mode'],
@@ -90,7 +90,9 @@ df = pd.DataFrame(track_features)
 # 重複する行を削除（トラックIDとトラック名で検討）
 df = df.drop_duplicates(subset=['track_id', 'track_name'])
 
+
+######################################################################################################
 # CSVファイルに保存
-df.to_csv('./data/target.csv', index=False)
+df.to_csv('./data/all.csv', index=False)
 
 print("CSV file has been created with the track features.")

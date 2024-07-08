@@ -21,9 +21,10 @@ def initialize_playlist(data, num_tracks=10):
 
 def predict_next_track(model, current_playlist, all_features):
     feature_columns = [
-        'danceability', 'acousticness', 'instrumentalness',
-        'loudness', 'key',  'speechiness', 'mode', 'play_number', 'tempo_scaled'
+        'danceability', 'acousticness', 'instrumentalness','energy','key',  'speechiness', 'mode', 'valence','liveness','play_number', 'tempo_scaled'
     ]
+
+    #track_id,track_name,danceability,acousticness,tempo,instrumentalness,energy,key,speechiness,mode,valence,liveness,play_number,playlist_number,tempo_scaled
 
     current_features = current_playlist[-10:][feature_columns].values
     prediction = model.predict(current_features[np.newaxis, :, :])[0]
@@ -82,4 +83,4 @@ if __name__ == '__main__':
     final_playlist = generate_playlist(model, initial_playlist, all_features, playlist_length=50)
 
     # 生成されたプレイリストをCSVファイルに保存
-    final_playlist[['track_id', 'track_name']].to_csv('generated_playlist.csv', index=False)
+    final_playlist[['track_id', 'track_name']].to_csv('./data/generated_playlist.csv', index=False)

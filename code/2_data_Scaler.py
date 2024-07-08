@@ -35,7 +35,7 @@ print(df_all[['tempo', 'tempo_scaled']].head())
 
 
 # 変更を新しいファイルに保存
-df.to_csv('target_scaled', index=False)
+df.to_csv('target_scaled.csv', index=False)
 # 変更を新しいファイルに保存
 df_all.to_csv('all_scaled.csv', index=False)
 
