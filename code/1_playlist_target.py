@@ -18,7 +18,7 @@ def get_all_track_ids_and_position(playlist_id, playlist_number):
     for item in tqdm(results['items'], desc="Processing tracks"):
         track_id = item['track']['id']
         if track_id:
-            track_details.append((track_id, position, 0))
+            track_details.append((track_id, position, playlist_number))  # playlist_number を追加
         position += 1
 
     while results['next']:
@@ -27,10 +27,11 @@ def get_all_track_ids_and_position(playlist_id, playlist_number):
         for item in tqdm(results['items'], desc="Processing tracks"):
             track_id = item['track']['id']
             if track_id:
-                track_details.append((track_id, position, 0))
+                track_details.append((track_id, position, playlist_number))  # playlist_number を追加
             position += 1
 
     return track_details
+
 
 def get_track_features(track_details):
     features_list = []

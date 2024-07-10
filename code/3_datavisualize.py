@@ -7,7 +7,7 @@ import seaborn as sns
 #track_features_0701_updated.csv
 
 
-df = pd.read_csv('./data/all_scaled.csv')
+df = pd.read_csv('./data/target_scaled.csv')
 
 # トラックIDとトラック名を除外
 df_numeric = df.drop(columns=['track_id', 'track_name'])
@@ -36,12 +36,12 @@ for name, group in playlist_groups:
     plt.plot(group['play_number'], group['danceability'], label='Danceability')
     plt.plot(group['play_number'], group['energy'], label='Energy')
     plt.plot(group['play_number'], group['tempo_scaled'], label='Tempo_scaled')
-    #plt.plot(group['play_number'], group['acousticness'], label='Acousticness')
+    plt.plot(group['play_number'], group['acousticness'], label='Acousticness')
     plt.plot(group['play_number'], group['instrumentalness'], label='Instrumentalness')
     #plt.plot(group['play_number'], group['loudness'], label='Loudness')
-    #plt.plot(group['play_number'], group['liveness'], label='Liveness')
+    plt.plot(group['play_number'], group['liveness'], label='Liveness')
     plt.plot(group['play_number'], group['valence'], label='Valence')
-    #plt.plot(group['play_number'], group['speechiness'], label='Speechiness')
+    plt.plot(group['play_number'], group['speechiness'], label='Speechiness')
     
     plt.title(f'Feature Changes in Playlist {name}')
     plt.xlabel('Play Number')
